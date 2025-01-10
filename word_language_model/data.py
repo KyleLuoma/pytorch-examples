@@ -46,3 +46,12 @@ class Corpus(object):
             ids = torch.cat(idss)
 
         return ids
+    
+    def tokenize_line(self, line: str) -> list:
+        words = line.split() + ["<eos>"]
+        idss = []
+        for word in words:
+            idss.append(self.dictionary.word2idx[word])
+        idss.append(torch.tensor(idss).type(torch.int64))
+        return idss
+    
